@@ -5,8 +5,8 @@ import uvicorn
 from app.api import predict, viz
 
 app = FastAPI(
-    title='DS API',
-    description='Lorem ipsum',
+    title='Kickstarter Success Predictor',
+    description='This app is used to predict whether a Kickstarter will be successful based on the Funding Goal and Campaign Length',
     version='0.1',
     docs_url='/',
 )

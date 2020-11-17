@@ -12,15 +12,16 @@ router = APIRouter()
 class Item(BaseModel):
     """Use this data model to parse the request body JSON."""
 
-    x1: float = Field(..., example=3.14)
-    x2: int = Field(..., example=-42)
-    x3: str = Field(..., example='banjo')
+    goal: int = Field(..., example=50000)
+    length: int = Field(..., example=30)
+    description: str = Field(..., example='tabletop board game')
+    category: str = Field(..., example='game')
 
     def to_df(self):
         """Convert pydantic object to pandas dataframe with 1 row."""
         return pd.DataFrame([dict(self)])
 
-    @validator('x1')
+    @validator('goal')
     def x1_must_be_positive(cls, value):
         """Validate that x1 is a positive number."""
         assert value > 0, f'x1 == {value}, must be > 0'
@@ -33,9 +34,10 @@ async def predict(item: Item):
     Make random baseline predictions for classification problem 🔮
 
     ### Request Body
-    - `x1`: positive float
-    - `x2`: integer
-    - `x3`: string
+    - `goal`: positive integer. US $.
+    - `length`: positive integer. number of days.
+    - `description`: string
+    - `category`: string
 
     ### Response
     - `prediction`: boolean, at random
