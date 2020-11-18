@@ -22,11 +22,16 @@ class Item(BaseModel):
         return pd.DataFrame([dict(self)])
 
     @validator('goal')
-    def x1_must_be_positive(cls, value):
-        """Validate that x1 is a positive number."""
-        assert value > 0, f'x1 == {value}, must be > 0'
+    def goal_must_be_positive(cls, value):
+        """Validate that goal is a positive number."""
+        assert value > 0, f'goal == {value}, must be > 0'
         return value
 
+    @validator('length')
+    def x1_must_be_positive(cls, value):
+        """Validate that length is a positive number."""
+        assert value > 0, f'length == {value}, must be > 0'
+        return value
 
 @router.post('/predict')
 async def predict(item: Item):
