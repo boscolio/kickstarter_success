@@ -18,6 +18,12 @@ uvicorn = "*"
 plotly = "*"
 typing-extensions = "*"
 dataclasses = "*"
+jupyterlab = "*"
+spacy = "*"
+sklearn = "*"
+scipy = "*"
+en-core-web-md = {file = "https://github.com/explosion/spacy-models/releases/download/en_core_web_md-2.3.1/en_core_web_md-2.3.1.tar.gz"}
+category-encoders = "*"
 
 [requires]
 python_version = "3"
