@@ -1,9 +1,25 @@
 import logging
+import os
 import random
+import pickle
+import datetime
 
 from fastapi import APIRouter
 import pandas as pd
 from pydantic import BaseModel, Field, validator
+import numpy as np
+import spacy
+
+from datetime import datetime
+from spacy.tokenizer import Tokenizer
+from spacy.lang.en.stop_words import STOP_WORDS
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.ensemble import GradientBoostingClassifier
+from scipy.stats import randint
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
+from category_encoders import OneHotEncoder
 
 log = logging.getLogger(__name__)
 router = APIRouter()
@@ -19,7 +35,8 @@ class Item(BaseModel):
 
     def to_df(self):
         """Convert pydantic object to pandas dataframe with 1 row."""
-        return pd.DataFrame([dict(self)])
+        #return pd.DataFrame({dict(self)})
+        pass
 
     @validator('goal')
     def goal_must_be_positive(cls, value):
@@ -52,11 +69,28 @@ async def predict(item: Item):
     Replace the placeholder docstring and fake predictions with your own model.
     """
 
-    X_new = item.to_df()
-    log.info(X_new)
-    y_pred = random.choice([True, False])
-    y_pred_proba = random.random() / 2 + 0.5
+    nlp = spacy.load("en_core_web_md")
+
+    desc_vectorized = pd.DataFrame(nlp(item.description).vector)
+
+    X_new = desc_vectorized.T
+    X_new['category'] = item.category
+    X_new['goal'] = item.goal
+    X_new['campaign length'] = item.length
+
+    loaded_model = pickle.load(open('gbnlp_pickle', 'rb'))
+
+    y_pred = loaded_model.predict(X_new)
+
     return {
-        'prediction': y_pred,
-        'probability': y_pred_proba
+        'prediction': y_pred
     }
+
+    # X_new = item.to_df()
+    # log.info(X_new)           
+    # y_pred = random.choice([True, False])
+    # y_pred_proba = random.random() / 2 + 0.5
+    # return {
+    #     'prediction': y_pred,
+    #     'probability': y_pred_proba
+    # }
