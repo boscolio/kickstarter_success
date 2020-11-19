@@ -35,8 +35,7 @@ class Item(BaseModel):
 
     def to_df(self):
         """Convert pydantic object to pandas dataframe with 1 row."""
-        #return pd.DataFrame({dict(self)})
-        pass
+        return pd.DataFrame([dict(self)])
 
     @validator('goal')
     def goal_must_be_positive(cls, value):
@@ -51,7 +50,7 @@ class Item(BaseModel):
         return value
 
 @router.post('/predict')
-async def predict(item: Item):
+def predict(item: Item):
     """
     Make random baseline predictions for classification problem 🔮
 
@@ -83,7 +82,7 @@ async def predict(item: Item):
     y_pred = loaded_model.predict(X_new)
 
     return {
-        'prediction': y_pred
+        'prediction': y_pred[0]
     }
 
     # X_new = item.to_df()
