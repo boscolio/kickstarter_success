@@ -44,7 +44,7 @@ class Item(BaseModel):
         return value
 
     @validator('length')
-    def x1_must_be_positive(cls, value):
+    def length_must_be_positive(cls, value):
         """Validate that length is a positive number."""
         assert value > 0, f'length == {value}, must be > 0'
         return value
@@ -52,20 +52,17 @@ class Item(BaseModel):
 @router.post('/predict')
 def predict(item: Item):
     """
-    Make random baseline predictions for classification problem 🔮
+    Make prediction based on features listed in Request Body.
 
     ### Request Body
     - `goal`: positive integer. US $.
-    - `length`: positive integer. number of days.
+    - `length`: positive integer. Number of days.
     - `description`: string
     - `category`: string
 
     ### Response
-    - `prediction`: boolean, at random
-    - `predict_proba`: float between 0.5 and 1.0, 
-    representing the predicted class's probability
+    - `prediction`: boolean. Success or Failure.
 
-    Replace the placeholder docstring and fake predictions with your own model.
     """
 
     nlp = spacy.load("en_core_web_md")
@@ -84,12 +81,4 @@ def predict(item: Item):
     return {
         'prediction': y_pred[0]
     }
-
-    # X_new = item.to_df()
-    # log.info(X_new)           
-    # y_pred = random.choice([True, False])
-    # y_pred_proba = random.random() / 2 + 0.5
-    # return {
-    #     'prediction': y_pred,
-    #     'probability': y_pred_proba
-    # }
+    
