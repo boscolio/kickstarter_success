@@ -98,7 +98,7 @@ threadpoolctl==2.1.0
 toml==0.10.2
 tornado==6.1
 tqdm==4.52.0
-traitlets==5.0.5
+traitlets==4.3.3
 typing-extensions==3.7.4.3
 urllib3==1.26.2
 uvicorn==0.12.2
