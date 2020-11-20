@@ -217,6 +217,7 @@ def predict(item: Item):
 
     ### Response
     - `prediction`: boolean. Success or Failure.
+    - `probability`: float. 
 
     """
 
