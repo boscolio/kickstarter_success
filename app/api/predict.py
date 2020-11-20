@@ -55,7 +55,7 @@ class Item(BaseModel):
     goal: int = Field(..., example=50000)
     length: int = Field(..., example=30)
     description: str = Field(..., example='tabletop board game')
-    category: str = Field(..., example='game')
+    category: str = Field(..., example='Tabletop Games')
 
     def to_df(self):
         """Convert pydantic object to pandas dataframe with 1 row."""
