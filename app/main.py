@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from app.api import predict, viz
+from app.api import predict
 
 app = FastAPI(
     title='Kickstarter Success Predictor',
-    description='This app is used to predict whether a Kickstarter will be successful based on the Funding Goal and Campaign Length',
+    description='This app is used to predict whether a Kickstarter will be successful based on the funding goal, campaign length, description and category.',
     version='0.1',
     docs_url='/',
 )
