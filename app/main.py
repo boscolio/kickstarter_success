@@ -8,6 +8,7 @@ description = """
 This app is used to predict whether a Kickstarter will be successful based on the funding goal, campaign length, description and category.
 
 Here is a correlation matrix between three of the four input options available.
+
 <img src="https://github.com/boscolio/kickstarter_success/blob/main/images/kickstarter%20correlation%20matrix.png?raw=true" width="40%" />
 """
 
